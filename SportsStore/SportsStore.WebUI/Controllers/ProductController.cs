@@ -1,5 +1,6 @@
 ﻿using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
+using SportsStore.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,13 +25,23 @@ namespace SportsStore.WebUI.Controllers
         public ViewResult List(int page = 1)
         {
             //get the Products from the DB
-            return View(repository.Products
+            ProductsListViewModel model = new ProductsListViewModel
+            {
+                Products = repository.Products
                 //order by primary key
                 .OrderBy(p => p.ProductID)
                 //skip over the products that occur before the start of the current page
                 .Skip((page - 1) * PageSize)
                 //take(show) the number of products specified by the PageSize field
-                .Take(PageSize));
+                .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = repository.Products.Count()
+                }
+            };
+            return View(model);
         }
     }
 }
