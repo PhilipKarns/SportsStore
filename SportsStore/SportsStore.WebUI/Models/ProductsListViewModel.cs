@@ -17,5 +17,10 @@ namespace SportsStore.WebUI.Models
         /// Gets or sets the properties of the PagingInfo model
         /// </summary>
         public PagingInfo PagingInfo { get; set; }
+
+        /// <summary>
+        /// Gets or sets the product category
+        /// </summary>
+        public string CurrentCategory { get; set; }
     }
 }
