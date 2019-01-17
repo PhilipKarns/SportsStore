@@ -23,11 +23,11 @@ namespace SportsStore.WebUI.Controllers
         /// </summary>
         /// <param name="returnUrl">Url for the continue shopping button, taking user back to products page</param>
         /// <returns>returns the current cart state and products page url</returns>        
-        public ViewResult Index(string returnUrl)
+        public ViewResult Index(Cart cart, string returnUrl)
         {
             return View(new CartIndexViewModel
             {
-                Cart = GetCart(),
+                Cart = cart,
                 ReturnUrl = returnUrl
             });
         }
@@ -38,14 +38,14 @@ namespace SportsStore.WebUI.Controllers
         /// <param name="productId">product id of the product being added to the cart</param>
         /// <param name="returnUrl">url of the products page, which will be applied to the continue shopping button of the cart index page</param>
         /// <returns></returns>
-        public RedirectToRouteResult AddToCart(int productId, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
             Product product = repository.Products
                 .FirstOrDefault(p => p.ProductID == productId);
 
             if (product != null)
             {
-                GetCart().AddItem(product, 1);
+                cart.AddItem(product, 1);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
@@ -56,33 +56,16 @@ namespace SportsStore.WebUI.Controllers
         /// <param name="productId"></param>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
-        public RedirectToRouteResult RemoveFromCart(int productId, string returnUrl)
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
         {
             Product product = repository.Products
                 .FirstOrDefault(p => p.ProductID == productId);
 
             if(product != null)
             {
-                GetCart().RemoveLine(product);
+                cart.RemoveLine(product);
             }
             return RedirectToAction("Index", new { returnUrl });
-        }
-
-        /// <summary>
-        /// gets the current cart session showing items in cart, or creates a new cart
-        /// </summary>
-        /// <returns>returns the new or existing cart state</returns>
-        private Cart GetCart()
-        {
-            //retrieve a session object
-            Cart cart = (Cart)Session["Cart"];
-            if (cart == null)
-            {
-                cart = new Cart();
-                //add an object to the session state
-                Session["Cart"] = cart;
-            }
-            return cart;
         }
     }
 }
