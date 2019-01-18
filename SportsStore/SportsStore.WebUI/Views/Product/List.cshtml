@@ -10,17 +10,6 @@
     @Html.Partial("ProductSummary", p)
 }
 
-@*@foreach (var p in Model.Products)
-{
-    <div class="card bg-light">
-        <h3>
-            <strong>@p.Name</strong>
-            <span class="float-right badge badge-primary">@p.Price.ToString("c")</span>
-        </h3>
-        <span class="lead">@p.Description</span>
-    </div>
-}*@
-
     <div class="btn btn-group float-right">
         @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
     </div>

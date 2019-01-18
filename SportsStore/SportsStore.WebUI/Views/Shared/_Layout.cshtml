@@ -8,11 +8,14 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div class="navbar bg-dark" role="navigation">
-        <h2>
-            <a class="nav-link" href="#">SPORTS STORE</a>
-        </h2>
-    </div>
+    <nav class="navbar bg-dark navbar-expand" role="navigation">
+        <div>
+            <h2>
+                <a class="nav-link" href="#">SPORTS STORE</a>
+                @Html.Action("Summary", "Cart")
+            </h2>
+        </div>
+    </nav>
     <div class="row">
         <div id="categories" class="col-3">
             @Html.Action("Menu", "Nav")
