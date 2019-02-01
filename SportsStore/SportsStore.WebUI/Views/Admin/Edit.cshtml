@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Admin: Edit " + Model.Name;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    HtmlHelper.ClientValidationEnabled = true;
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
 }
 
 <div class="card">
@@ -28,6 +30,7 @@
                         {
                             @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
                         }
+                        @Html.ValidationMessage(property.PropertyName)
                     </div>
                 }
             }
