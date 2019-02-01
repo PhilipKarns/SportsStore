@@ -29,5 +29,22 @@ namespace SportsStore.WebUI.Controllers
                 .FirstOrDefault(p => p.ProductID == productId);
             return View(product);
         }
+
+        //method to Edit product details. See the cshtml file for the message implementation
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.SaveProduct(product);
+                TempData["message"] = string.Format("{0} has been saved", product.Name);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                //there is something wrong with the values
+                return View(product);
+            }
+        }
     }
 }
