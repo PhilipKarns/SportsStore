@@ -46,5 +46,10 @@ namespace SportsStore.WebUI.Controllers
                 return View(product);
             }
         }
+
+        public ActionResult Create(Product product)
+        {
+            return View("Edit", new Product());
+        }
     }
 }
