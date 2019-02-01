@@ -13,5 +13,7 @@ namespace SportsStore.Domain.Abstract
 
         //interface for the method that's implemented in the Entity framework EFProductRepository.cs class
         void SaveProduct(Product product);
+
+        Product DeleteProduct(int productID);
     }
 }
