@@ -1,6 +1,13 @@
 ﻿@model SportsStore.Domain.Entities.Product
 
 <div class="card bg-light">
+    @if (Model.ImageData != null)
+    {
+        <div class="pull-left" style="margin-right: 10px">
+            <img class="img-thumbnail" width="75" height="75" src="@Url.Action("GetImage", "Product", new { Model.ProductID })" />
+        </div>
+    }
+
     <h3>
         <string>@Model.Name</string>
         <span class="float-right badge badge-primary">@Model.Price.ToString("c")</span>
